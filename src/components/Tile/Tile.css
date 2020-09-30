@@ -1,0 +1,15 @@
+.tile {
+    cursor: pointer;
+    outline: none;
+    border: 2px solid gray;
+    background-color: rgb(255, 255, 255);
+    transition: .15s background-color ease-in-out;
+}
+
+.tile:hover {
+    background-color: rgb(235, 235, 235);
+}
+
+.tile:focus {
+    border-color: rgb(42, 91, 165);
+}
