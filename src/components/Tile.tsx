@@ -4,13 +4,13 @@ import './Tile/Tile.css';
 
 function Tile({ text, isOpened, isUnlock, isDisabled, onClick }: ITile) {
     return (
-        <button 
-            className="tile" 
+        <div
+            className={"tile" + (isOpened ? " tile-flip" : "")}
             onClick={onClick}
-            disabled={isDisabled}
         >
-            {isOpened && text}
-        </button>
+            <div className="tile__front-side">lock</div>
+            <div className="tile__back-side">123</div>
+        </div>
     )
 }
 
