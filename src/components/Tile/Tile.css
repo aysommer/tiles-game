@@ -4,7 +4,7 @@
     border: 2px solid gray;
     transform: scale(1);
     transform-style: preserve-3d;
-    transition: .15s all ease-in-out;
+    transition: .2s all ease-in-out;
 }
 
 .tile__front-side,
@@ -17,6 +17,9 @@
 }
 
 .tile__back-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transform: rotateY(180deg);
 }
 

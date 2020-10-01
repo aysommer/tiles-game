@@ -8,8 +8,8 @@ function Tile({ text, isOpened, isUnlock, isDisabled, onClick }: ITile) {
             className={"tile" + (isOpened ? " tile-flip" : "")}
             onClick={onClick}
         >
-            <div className="tile__front-side">lock</div>
-            <div className="tile__back-side">123</div>
+            <div className="tile__front-side"></div>
+            <div className="tile__back-side">{text}</div>
         </div>
     )
 }

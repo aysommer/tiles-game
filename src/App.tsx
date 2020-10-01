@@ -4,11 +4,11 @@ import TileGrid from './components/TileGrid';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <TileGrid/>
-    </div>
-  );
+	return (
+		<div className="App">
+			<TileGrid />
+		</div>
+	);
 }
 
 export default App;
