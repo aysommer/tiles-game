@@ -10,8 +10,7 @@ const SELECTED_KEYS: number[] = [];
 const TILE: ITile = {
     text: "",
     isOpened: false,
-    isUnlock: false,
-    isDisabled: false
+    isUnlock: false
 };
 
 function TileGrid() {
@@ -21,11 +20,14 @@ function TileGrid() {
         ...val,
         text: randSequence[i]
     })));
+    const [isAnimating, setIsAnimating] = useState(false);
 
     function handleOpenTile(selectedKey: number): void {
         const { isOpened } = tiles[selectedKey];
 
-        if (isOpened || selectedKeys.length === MAX_OPENED_TILES) {
+        if (isOpened || 
+            selectedKeys.length === MAX_OPENED_TILES + 1 ||
+            isAnimating) {
             return;
         }
 
@@ -38,20 +40,33 @@ function TileGrid() {
         setTiles(newTiles);
         setSelectedKeys(newKeys);
 
-        setTimeout(() => {
-            if (newKeys.length === MAX_OPENED_TILES) {
-                toggleEnableTiles(true);
-    
-                if (!isEqualTiles(newKeys)) {
-                    console.log('!')
-                    setTimeout(() => {
-                        closeAllTiles();
-                        toggleEnableTiles(false);
-                        setSelectedKeys(SELECTED_KEYS);
-                    }, 1000);
-                }
+        if (newKeys.length === MAX_OPENED_TILES) {
+            if (!isEqualTiles(newKeys)) {
+                setIsAnimating(true);
+                setTimeout(() => {
+                    closeSelectedTiles();
+                    setSelectedKeys([]);
+                    setIsAnimating(false);
+                }, 1000);
+            } else {
+                setIsAnimating(true);
+                setTimeout(() => {
+                    setSelectedKeys([]);
+                    setIsAnimating(false);
+                    if (isWin()) {
+                        showWin();
+                    }
+                }, 1000);
             }
-        }, 1000)
+        }
+    }
+
+    function showWin() {
+        alert("WIN");
+    }
+
+    function isWin() : boolean {
+        return tiles.every(tile => tile.isOpened === true);
     }
 
     function isEqualTiles(selectedKeys: number[]) {
@@ -62,33 +77,25 @@ function TileGrid() {
         return firstTile.text === secondTile.text;
     }
 
-    function closeAllTiles() {
-        const newTiles: ITile[] = [...tiles].map((tile: ITile) => ({
-            ...tile,
-            isOpened: false
-        }));
-
-        setTiles(newTiles);
-    }
-
-    function toggleEnableTiles(isDisabled: boolean) {
-        const newTiles: ITile[] = [...tiles].map((tile: ITile) => ({
-            ...tile,
-            isDisabled
-        }));
+    function closeSelectedTiles() {
+        const newTiles: ITile[] = [...tiles].map((tile: ITile, key) => {
+            return (selectedKeys.includes(key)) ? {
+                ...tile,
+                isOpened: false
+            } : tile
+        });
 
         setTiles(newTiles);
     }
 
     return (
         <section className="tile-grid">
-            {tiles.map(({ text, isOpened, isUnlock, isDisabled }: ITile, key) => (
+            {tiles.map(({ text, isOpened, isUnlock }: ITile, key) => (
                 <Tile
                     key={key}
                     text={text}
                     isOpened={isOpened}
                     isUnlock={isUnlock}
-                    isDisabled={isDisabled}
                     onClick={() => handleOpenTile(key)}
                 />
             ))}

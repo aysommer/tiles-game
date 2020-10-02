@@ -2,7 +2,7 @@ import React from 'react';
 import { ITile } from '../../interfaces';
 import './Tile/Tile.css';
 
-function Tile({ text, isOpened, isUnlock, isDisabled, onClick }: ITile) {
+function Tile({ text, isOpened, isUnlock, onClick }: ITile) {
     return (
         <div
             className={"tile" + (isOpened ? " tile-flip" : "")}

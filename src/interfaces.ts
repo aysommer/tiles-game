@@ -1,6 +1,5 @@
 export interface IControl {
     onClick?: () => void;
-    isDisabled?: boolean;
 }
 
 export interface ITile extends IControl {
