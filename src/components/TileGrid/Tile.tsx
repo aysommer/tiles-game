@@ -1,5 +1,5 @@
 import React from 'react';
-import { ITile } from '../interfaces';
+import { ITile } from '../../interfaces';
 import './Tile/Tile.css';
 
 function Tile({ text, isOpened, isUnlock, isDisabled, onClick }: ITile) {

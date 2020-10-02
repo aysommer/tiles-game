@@ -32,11 +32,11 @@ export default class Game {
 
     public static getRandomPairedArray(length: number): number[] {
         const sequenceLength = length / 2;
-        const arr = [
+        const arr = this.shake([
             ...this.getSequence(sequenceLength),
             ...this.getSequence(sequenceLength)
-        ];
+        ]);
 
-        return this.shake(arr);
+        return arr;
     }
 }

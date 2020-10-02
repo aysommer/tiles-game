@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Game from '../helpers/Game';
 import { ITile } from '../interfaces';
-import Tile from './Tile';
+import Tile from './TileGrid/Tile';
 import './TileGrid/TileGrid.css';
 
 const MAX_OPENED_TILES = 2;
@@ -23,32 +23,35 @@ function TileGrid() {
     })));
 
     function handleOpenTile(selectedKey: number): void {
-        const { isDisabled } = tiles[selectedKey];
+        const { isOpened } = tiles[selectedKey];
 
-        if (isDisabled) {
+        if (isOpened || selectedKeys.length === MAX_OPENED_TILES) {
             return;
         }
 
         const newTiles: ITile[] = [...tiles].map((tile, key): ITile => (key === selectedKey) ? {
             ...tile,
-            isOpened: !tile.isOpened
+            isOpened: true
         }: tile);
         const newKeys = [...selectedKeys, selectedKey];
 
         setTiles(newTiles);
         setSelectedKeys(newKeys);
 
-        if (newKeys.length === MAX_OPENED_TILES) {
-            toggleEnableTiles(true);
-
-            if (!isEqualTiles(newKeys)) {
-                console.log('!')
-                setTimeout(() => {
-                    closeAllTiles();
-                    toggleEnableTiles(false);
-                }, 1000);
+        setTimeout(() => {
+            if (newKeys.length === MAX_OPENED_TILES) {
+                toggleEnableTiles(true);
+    
+                if (!isEqualTiles(newKeys)) {
+                    console.log('!')
+                    setTimeout(() => {
+                        closeAllTiles();
+                        toggleEnableTiles(false);
+                        setSelectedKeys(SELECTED_KEYS);
+                    }, 1000);
+                }
             }
-        }
+        }, 1000)
     }
 
     function isEqualTiles(selectedKeys: number[]) {
