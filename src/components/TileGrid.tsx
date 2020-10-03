@@ -14,6 +14,7 @@ const TILE: ITile = {
 };
 
 function TileGrid() {
+    const [openings, setOpenings] = useState(0);
     const [selectedKeys, setSelectedKeys] = useState(SELECTED_KEYS);
     const [randSequence, setRandSequence] = useState(Game.getRandomPairedArray(GRID_SIZE));
     const [tiles, setTiles] = useState(Array(GRID_SIZE).fill(TILE).map((val, i): ITile => ({
@@ -30,6 +31,8 @@ function TileGrid() {
             isAnimating) {
             return;
         }
+
+        setOpenings(openings + 1);
 
         const newTiles: ITile[] = [...tiles].map((tile, key): ITile => (key === selectedKey) ? {
             ...tile,
@@ -98,17 +101,20 @@ function TileGrid() {
     }
 
     return (
-        <section className="tile-grid">
-            {tiles.map(({ text, isOpened, isUnlock }: ITile, key) => (
-                <Tile
-                    key={key}
-                    text={text}
-                    isOpened={isOpened}
-                    isUnlock={isUnlock}
-                    onClick={() => handleOpenTile(key)}
-                />
-            ))}
-        </section>
+        <div>
+            <h1 style={{ textAlign: 'center' }}>{`Openings: ${openings}`}</h1>
+            <section className="tile-grid">
+                {tiles.map(({ text, isOpened, isUnlock }: ITile, key) => (
+                    <Tile
+                        key={key}
+                        text={text}
+                        isOpened={isOpened}
+                        isUnlock={isUnlock}
+                        onClick={() => handleOpenTile(key)}
+                    />
+                ))}
+            </section>
+        </div>
     )
 }
 
