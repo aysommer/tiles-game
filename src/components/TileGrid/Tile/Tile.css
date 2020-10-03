@@ -1,10 +1,12 @@
 .tile {
     cursor: pointer;
     outline: none;
-    border: 2px solid gray;
+    border: 2px solid rgb(230, 230, 230);
     transform: scale(1);
     transform-style: preserve-3d;
     transition: .2s all ease-in-out;
+    font-weight: bold;
+    font-size: 1.25em;
 }
 
 .tile__front-side,
@@ -21,10 +23,16 @@
     justify-content: center;
     align-items: center;
     transform: rotateY(180deg);
+    border: 2px solid #505add;
 }
 
 .tile-flip {
     transform: rotateY(180deg);
+}
+
+.tile:hover {
+    border: 2px solid rgb(184, 184, 184);
+    background: rgb(235, 235, 235);
 }
 
 .tile:active {

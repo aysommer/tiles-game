@@ -61,6 +61,15 @@ function TileGrid() {
         }
     }
 
+    function resetGame() {
+        setRandSequence(Game.getRandomPairedArray(GRID_SIZE));
+        setTiles(Array(GRID_SIZE).fill(TILE).map((val, i): ITile => ({
+            ...val,
+            text: randSequence[i],
+            isOpened: false
+        })));
+    }
+
     function showWin() {
         alert("WIN");
     }
