@@ -7,3 +7,13 @@
   align-items: center;
   flex-direction: column;
 }
+
+.app__info-panel {
+  width: 20em;
+  padding: 0 20px;
+  border-radius: 20px;
+  margin-bottom: 25px;
+  text-align: center;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
