@@ -4,7 +4,7 @@ export interface IControl {
 }
 
 export interface ITile extends IControl {
-    text?: string;
+    text: string;
     isOpened?: boolean;
     isUnlock?: boolean;
 }

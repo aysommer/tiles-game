@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TileGrid from './components/TileGrid';
 import Button from './components/Button';
 import Game from './helpers/Game';
 import { ITile } from './interfaces';
+import InfoTitle from './components/InfoTitle';
 
 import './App.css';
-import InfoTitle from './components/InfoTitle';
 
 const MAX_OPENED_TILES = 2;
 const GRID_SIZE = 16;
@@ -27,7 +27,7 @@ function App() {
 	const [isAnimating, setIsAnimating] = useState(false);
 	const [resetEnable, setResetEnable] = useState(true);
 	
-	function handleOpenTile(selectedKey: number): void {
+	function handleOpenTile(selectedKey: number) {
         const { isOpened } = tiles[selectedKey];
 
         if (isOpened || 
@@ -36,19 +36,62 @@ function App() {
             return;
         }
 
-        setOpenings(openings + 1);
-
-        const newTiles: ITile[] = [...tiles].map((tile, key): ITile => (key === selectedKey) ? {
+        setOpenings(currentOpenings => currentOpenings + 1);
+        setTiles(currentTiles => currentTiles.map((tile, key): ITile => (key === selectedKey) ? {
             ...tile,
             isOpened: true
-        }: tile);
-        const newKeys = [...selectedKeys, selectedKey];
+        }: tile));
+        setSelectedKeys(currentKeys => [...currentKeys, selectedKey]);
+    }
 
-        setTiles(newTiles);
-        setSelectedKeys(newKeys);
+    function handleResetGame() {
+		setIsAnimating(true);
+		setResetEnable(false);
+		setOpenings(0);
+		setSelectedKeys(SELECTED_KEYS);
+		setRandSequence(Game.getRandomPairedArray(GRID_SIZE));
+		setTiles(Array(GRID_SIZE).fill(TILE).map((val, i): ITile => ({
+			...val,
+			isOpened: false
+		})));
 
-        if (newKeys.length === MAX_OPENED_TILES) {
-            if (!isEqualTiles(newKeys)) {
+		setTimeout(() => {
+			setTiles(currentTiles => currentTiles.map((tile, i): ITile => ({
+				...tile,
+				text: randSequence[i].toString()
+			})));
+			setIsAnimating(false);
+			setResetEnable(true);
+		}, 500);
+    }
+
+    function showWin() {
+        alert("WIN");
+    }
+
+    function isWin() : boolean {
+        return tiles.every(tile => tile.isOpened === true);
+    }
+
+    function isEqualTiles([firstKey, secondKey]: number[]) {
+        const firstTile: ITile = tiles[firstKey]; 
+        const secondTile: ITile = tiles[secondKey];
+        
+        return firstTile.text === secondTile.text;
+    }
+
+    function closeSelectedTiles() {
+        setTiles(currentTiles => currentTiles.map((tile: ITile, key) => {
+            return selectedKeys.includes(key) ? {
+                ...tile,
+                isOpened: false
+            } : tile
+        }));
+    }
+
+    useEffect(() => {
+        if (selectedKeys.length === MAX_OPENED_TILES) {
+            if (!isEqualTiles(selectedKeys)) {
                 setIsAnimating(true);
                 setTimeout(() => {
                     closeSelectedTiles();
@@ -66,55 +109,7 @@ function App() {
                 }, 1000);
             }
         }
-    }
-
-    function handleResetGame() {
-		setIsAnimating(true);
-		setResetEnable(false);
-		setOpenings(0);
-		setSelectedKeys(SELECTED_KEYS);
-		setRandSequence(Game.getRandomPairedArray(GRID_SIZE));
-		setTiles(Array(GRID_SIZE).fill(TILE).map((val, i): ITile => ({
-			...val,
-			isOpened: false
-		})));
-
-		setTimeout(() => {
-			setTiles(Array(GRID_SIZE).fill(TILE).map((val, i): ITile => ({
-				...val,
-				text: randSequence[i]
-			})));
-			setIsAnimating(false);
-			setResetEnable(true);
-		}, 500);
-    }
-
-    function showWin() {
-        alert("WIN");
-    }
-
-    function isWin() : boolean {
-        return tiles.every(tile => tile.isOpened === true);
-    }
-
-    function isEqualTiles(selectedKeys: number[]) {
-        const [firstKey, secondKey] = selectedKeys;
-        const firstTile: ITile = tiles[firstKey]; 
-        const secondTile: ITile = tiles[secondKey];
-        
-        return firstTile.text === secondTile.text;
-    }
-
-    function closeSelectedTiles() {
-        const newTiles: ITile[] = [...tiles].map((tile: ITile, key) => {
-            return (selectedKeys.includes(key)) ? {
-                ...tile,
-                isOpened: false
-            } : tile
-        });
-
-        setTiles(newTiles);
-    }
+    }, [selectedKeys])
 
 	return (
 		<div className="App">
