@@ -116,7 +116,7 @@ function App() {
 		<div className="App">
             <motion.div 
                 className="app__info-panel" 
-                transition={{ duration: 0.5 }} 
+                transition={{ duration: 0.5, ease: "easeInOut" }} 
                 initial={{ opacity: 0, scale: 0 }} 
                 animate={{ opacity: 1, scale: 1 }}
             >
@@ -124,7 +124,7 @@ function App() {
             </motion.div>
             <motion.div 
                 className="app__main-section"
-                transition={{ duration: 0.75 }}
+                transition={{ duration: 0.75, ease: "easeInOut" }}
                 initial={{ opacity: 0, scale: 0 }} 
                 animate={{ opacity: 1, scale: 1 }}
             >
@@ -132,7 +132,7 @@ function App() {
             </motion.div>
             <motion.div 
                 className="app__controllers-panel" 
-                transition={{ duration: 1 }} 
+                transition={{ duration: 1, ease: "easeInOut" }} 
                 initial={{ opacity: 0, scale: 0 }} 
                 animate={{ opacity: 1, scale: 1 }}
             >
