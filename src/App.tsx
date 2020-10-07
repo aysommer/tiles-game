@@ -4,6 +4,7 @@ import Button from './components/Button';
 import Game from './helpers/Game';
 import { ITile } from './interfaces';
 import InfoTitle from './components/InfoTitle';
+import { motion } from "framer-motion"
 
 import './App.css';
 
@@ -70,7 +71,7 @@ function App() {
     }
 
     function isWin() : boolean {
-        return tiles.every(tile => tile.isOpened === true);
+        return tiles.every((tile: ITile) => tile.isOpened === true);
     }
 
     function isEqualTiles([firstKey, secondKey]: number[]) {
@@ -113,19 +114,34 @@ function App() {
 
 	return (
 		<div className="App">
-			<div className="app__info-panel">
-				<InfoTitle openings={openings}/>
-			</div>
-			<div className="app__main-section">
-				<TileGrid source={tiles} handleOpenTile={handleOpenTile}/>
-			</div>
-			<div className="app__controllers-panel">
-				<Button 
-					text="Reset"
-					onClick={handleResetGame}
-					disabled={!resetEnable || !(openings > 0)}
-				/>
-			</div>
+            <motion.div 
+                className="app__info-panel" 
+                transition={{ duration: 0.5 }} 
+                initial={{ opacity: 0, scale: 0 }} 
+                animate={{ opacity: 1, scale: 1 }}
+            >
+                <InfoTitle openings={openings}/>
+            </motion.div>
+            <motion.div 
+                className="app__main-section"
+                transition={{ duration: 0.75 }}
+                initial={{ opacity: 0, scale: 0 }} 
+                animate={{ opacity: 1, scale: 1 }}
+            >
+                <TileGrid source={tiles} handleOpenTile={handleOpenTile}/>
+            </motion.div>
+            <motion.div 
+                className="app__controllers-panel" 
+                transition={{ duration: 1 }} 
+                initial={{ opacity: 0, scale: 0 }} 
+                animate={{ opacity: 1, scale: 1 }}
+            >
+                <Button 
+                    text="Reset"
+                    onClick={handleResetGame}
+                    disabled={!resetEnable || !(openings > 0)}
+                />
+            </motion.div>
 		</div>
 	);
 }
