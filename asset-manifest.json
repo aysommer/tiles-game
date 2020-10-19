@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/tiles-game/static/css/main.16488112.chunk.css",
+    "main.js": "/tiles-game/static/js/main.54716b42.chunk.js",
+    "main.js.map": "/tiles-game/static/js/main.54716b42.chunk.js.map",
+    "runtime-main.js": "/tiles-game/static/js/runtime-main.7ec06ffc.js",
+    "runtime-main.js.map": "/tiles-game/static/js/runtime-main.7ec06ffc.js.map",
+    "static/js/2.e611cc82.chunk.js": "/tiles-game/static/js/2.e611cc82.chunk.js",
+    "static/js/2.e611cc82.chunk.js.map": "/tiles-game/static/js/2.e611cc82.chunk.js.map",
+    "index.html": "/tiles-game/index.html",
+    "precache-manifest.4e1a23ae5700fec49e7ce389403b077c.js": "/tiles-game/precache-manifest.4e1a23ae5700fec49e7ce389403b077c.js",
+    "service-worker.js": "/tiles-game/service-worker.js",
+    "static/css/main.16488112.chunk.css.map": "/tiles-game/static/css/main.16488112.chunk.css.map",
+    "static/js/2.e611cc82.chunk.js.LICENSE.txt": "/tiles-game/static/js/2.e611cc82.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7ec06ffc.js",
+    "static/js/2.e611cc82.chunk.js",
+    "static/css/main.16488112.chunk.css",
+    "static/js/main.54716b42.chunk.js"
+  ]
+}
