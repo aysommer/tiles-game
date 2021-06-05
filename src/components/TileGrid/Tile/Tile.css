@@ -22,12 +22,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: rotateY(180deg);
-    border: 2px solid #505add;
+    transform: var(--rotate-y);
+    border: 2px solid var(--main-color);
 }
 
 .tile-flip {
-    transform: rotateY(180deg);
+    transform: var(--rotate-y);
     pointer-events: none;
 }
 

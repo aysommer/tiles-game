@@ -1,0 +1,12 @@
+:root {
+    --main-color: hsl(236, 67%, 60%);
+    --active-main-color: hsl(236, 67%, 65%);
+    --disabled-main-color: hsl(236, 67%, 70%);
+    --dark-main-color: hsl(236, 67%, 50%);
+
+    --box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+
+    --border-radius: 20px;
+
+    --rotate-y: rotateY(180deg);
+}

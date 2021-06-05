@@ -1,6 +1,7 @@
 import React from 'react';
 import { ITile } from '../interfaces';
 import Tile from './TileGrid/Tile';
+
 import './TileGrid/TileGrid.css';
 
 interface ITileGrid {

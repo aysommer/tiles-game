@@ -1,24 +1,29 @@
-.base-button { 
+.base-button {
     outline: none;
-    border-radius: 20px;
+    border-radius: var(--border-radius);
     box-sizing: border-box;
     user-select: none;
     touch-action: manipulation;
-    border: 0;
-    background-color: #505add;
+    border: solid 3px transparent;
+    background-color: var(--main-color);
     color: white;
     font-size: 1.25em;
     padding: .5em 3em;
     cursor: pointer;
-    transition: .15s all ease-in-out;
+    transition: all .15s ease-in-out;
+    box-shadow: var(--box-shadow);
+
+}
+
+.base-button:hover:not(:disabled) {
+    border-color: var(--dark-main-color);
 }
 
 .base-button:active {
-    background-color: #434bbd;
+    background-color: var(--active-main-color);
 }
 
 .base-button:disabled {
-    background-color: #353649;
-    color: gray;
+    background-color: var(--disabled-main-color);
     cursor: initial;
 }

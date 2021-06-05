@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TileGrid from './components/TileGrid';
 import Button from './components/Button';
-import Game from './helpers/Game';
+import Game from './utils/Game';
 import { ITile } from './interfaces';
 import InfoTitle from './components/InfoTitle';
 import { motion } from "framer-motion"
@@ -27,11 +27,11 @@ function App() {
     })));
 	const [isAnimating, setIsAnimating] = useState(false);
 	const [resetEnable, setResetEnable] = useState(true);
-	
+
 	function handleOpenTile(selectedKey: number) {
         const { isOpened } = tiles[selectedKey];
 
-        if (isOpened || 
+        if (isOpened ||
             selectedKeys.length === MAX_OPENED_TILES + 1 ||
             isAnimating) {
             return;
@@ -75,9 +75,9 @@ function App() {
     }
 
     function isEqualTiles([firstKey, secondKey]: number[]) {
-        const firstTile: ITile = tiles[firstKey]; 
+        const firstTile: ITile = tiles[firstKey];
         const secondTile: ITile = tiles[secondKey];
-        
+
         return firstTile.text === secondTile.text;
     }
 
@@ -114,29 +114,29 @@ function App() {
 
 	return (
 		<div className="App">
-            <motion.div 
-                className="app__info-panel" 
-                transition={{ duration: 0.5, ease: "easeInOut" }} 
-                initial={{ opacity: 0, scale: 0 }} 
+            <motion.div
+                className="app__info-panel"
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
             >
                 <InfoTitle openings={openings}/>
             </motion.div>
-            <motion.div 
+            <motion.div
                 className="app__main-section"
                 transition={{ duration: 0.75, ease: "easeInOut" }}
-                initial={{ opacity: 0, scale: 0 }} 
+                initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
             >
                 <TileGrid source={tiles} handleOpenTile={handleOpenTile}/>
             </motion.div>
-            <motion.div 
-                className="app__controllers-panel" 
-                transition={{ duration: 1, ease: "easeInOut" }} 
-                initial={{ opacity: 0, scale: 0 }} 
+            <motion.div
+                className="app__controllers-panel"
+                transition={{ duration: 1, ease: "easeInOut" }}
+                initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
             >
-                <Button 
+                <Button
                     text="Reset"
                     onClick={handleResetGame}
                     disabled={!resetEnable || !(openings > 0)}
