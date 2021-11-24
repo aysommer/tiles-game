@@ -18,17 +18,17 @@ const TILE: ITile = {
 };
 
 function App() {
-	const [openings, setOpenings] = useState(0);
-	const [selectedKeys, setSelectedKeys] = useState(SELECTED_KEYS);
-    const [randSequence, setRandSequence] = useState(Game.getRandomPairedArray(GRID_SIZE));
-    const [tiles, setTiles] = useState(Array(GRID_SIZE).fill(TILE).map((val, i): ITile => ({
+    const [openings, setOpenings] = useState<number>(0);
+    const [selectedKeys, setSelectedKeys] = useState<number[]>(SELECTED_KEYS);
+    const [randSequence, setRandSequence] = useState<number[]>(Game.getRandomPairedArray(GRID_SIZE));
+    const [tiles, setTiles] = useState<ITile[]>(Array(GRID_SIZE).fill(TILE).map((val, i): ITile => ({
         ...val,
         text: randSequence[i]
     })));
-	const [isAnimating, setIsAnimating] = useState(false);
-	const [resetEnable, setResetEnable] = useState(true);
+    const [isAnimating, setIsAnimating] = useState<boolean>(false);
+    const [resetEnable, setResetEnable] = useState<boolean>(true);
 
-	function handleOpenTile(selectedKey: number) {
+    function handleOpenTile(selectedKey: number) {
         const { isOpened } = tiles[selectedKey];
 
         if (isOpened ||
@@ -37,40 +37,40 @@ function App() {
             return;
         }
 
-        setOpenings(currentOpenings => currentOpenings + 1);
-        setTiles(currentTiles => currentTiles.map((tile, key): ITile => (key === selectedKey) ? {
+        setOpenings((currentOpenings: number) => currentOpenings + 1);
+        setTiles((currentTiles: ITile[]) => currentTiles.map((tile, key): ITile => (key === selectedKey) ? {
             ...tile,
             isOpened: true
-        }: tile));
-        setSelectedKeys(currentKeys => [...currentKeys, selectedKey]);
+        } : tile));
+        setSelectedKeys((currentKeys: number[]) => [...currentKeys, selectedKey]);
     }
 
     function handleResetGame() {
-		setIsAnimating(true);
-		setResetEnable(false);
-		setOpenings(0);
-		setSelectedKeys(SELECTED_KEYS);
-		setRandSequence(Game.getRandomPairedArray(GRID_SIZE));
-		setTiles(Array(GRID_SIZE).fill(TILE).map((val, i): ITile => ({
-			...val,
-			isOpened: false
-		})));
+        setIsAnimating(true);
+        setResetEnable(false);
+        setOpenings(0);
+        setSelectedKeys(SELECTED_KEYS);
+        setRandSequence(Game.getRandomPairedArray(GRID_SIZE));
+        setTiles(Array(GRID_SIZE).fill(TILE).map((val, i): ITile => ({
+            ...val,
+            isOpened: false
+        })));
 
-		setTimeout(() => {
-			setTiles(currentTiles => currentTiles.map((tile, i): ITile => ({
-				...tile,
-				text: randSequence[i].toString()
-			})));
-			setIsAnimating(false);
-			setResetEnable(true);
-		}, 500);
+        setTimeout(() => {
+            setTiles((currentTiles: ITile[]) => currentTiles.map((tile: ITile, i: number): ITile => ({
+                ...tile,
+                text: randSequence[i].toString()
+            })));
+            setIsAnimating(false);
+            setResetEnable(true);
+        }, 500);
     }
 
     function showWin() {
         alert("WIN");
     }
 
-    function isWin() : boolean {
+    function isWin(): boolean {
         return tiles.every((tile: ITile) => tile.isOpened === true);
     }
 
@@ -82,7 +82,7 @@ function App() {
     }
 
     function closeSelectedTiles() {
-        setTiles(currentTiles => currentTiles.map((tile: ITile, key) => {
+        setTiles((currentTiles: ITile[]) => currentTiles.map((tile: ITile, key: number) => {
             return selectedKeys.includes(key) ? {
                 ...tile,
                 isOpened: false
@@ -112,15 +112,15 @@ function App() {
         }
     }, [selectedKeys])
 
-	return (
-		<div className="App">
+    return (
+        <div className="App">
             <motion.div
                 className="app__info-panel"
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
             >
-                <InfoTitle openings={openings}/>
+                <InfoTitle openings={openings} />
             </motion.div>
             <motion.div
                 className="app__main-section"
@@ -128,7 +128,7 @@ function App() {
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
             >
-                <TileGrid source={tiles} handleOpenTile={handleOpenTile}/>
+                <TileGrid source={tiles} handleOpenTile={handleOpenTile} />
             </motion.div>
             <motion.div
                 className="app__controllers-panel"
@@ -142,8 +142,8 @@ function App() {
                     disabled={!resetEnable || !(openings > 0)}
                 />
             </motion.div>
-		</div>
-	);
+        </div>
+    );
 }
 
 export default App;
