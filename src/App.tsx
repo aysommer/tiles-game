@@ -29,7 +29,7 @@ function App() {
     const [isAnimating, setIsAnimating] = useState<boolean>(false);
     const [resetEnable, setResetEnable] = useState<boolean>(true);
 
-    function handleOpenTile(selectedKey: number) {
+    const handleOpenTile = (selectedKey: number) => () => {
         const { isOpened } = tiles[selectedKey];
 
         if (isOpened ||
@@ -65,31 +65,31 @@ function App() {
             setIsAnimating(false);
             setResetEnable(true);
         }, 500);
-    }, []);
+    }, [randSequence]);
 
     function showWin() {
         alert("WIN");
     }
 
-    function isWin(): boolean {
+    const isWin = useCallback(() => {
         return tiles.every((tile: ITile) => tile.isOpened === true);
-    }
+    }, [tiles]);
 
-    function isEqualTiles([firstKey, secondKey]: number[]) {
+    const isEqualTiles = useCallback(([firstKey, secondKey]: number[]) => {
         const firstTile: ITile = tiles[firstKey];
         const secondTile: ITile = tiles[secondKey];
 
         return firstTile.text === secondTile.text;
-    }
+    }, [tiles]);
 
-    function closeSelectedTiles() {
+    const closeSelectedTiles = useCallback(() => {
         setTiles((currentTiles: ITile[]) => currentTiles.map((tile: ITile, key: number) => {
             return selectedKeys.includes(key) ? {
                 ...tile,
                 isOpened: false
             } : tile
         }));
-    }
+    }, [selectedKeys]);
 
     useEffect(() => {
         if (selectedKeys.length === MAX_OPENED_TILES) {
@@ -111,7 +111,7 @@ function App() {
                 }, 1000);
             }
         }
-    }, [selectedKeys])
+    }, [selectedKeys, closeSelectedTiles, isEqualTiles, isWin])
 
     return (
         <div className="App">
@@ -137,7 +137,7 @@ function App() {
                                 text={text}
                                 isOpened={isOpened}
                                 isUnlock={isUnlock}
-                                onClick={() => handleOpenTile(key)}
+                                onClick={handleOpenTile(key)}
                             />
                         ))
                     }

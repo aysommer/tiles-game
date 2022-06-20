@@ -1,16 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import { createRoot } from 'react-dom/client';
 import App from './App';
+
 import * as serviceWorker from './serviceWorker';
-
 import './themes.css';
+import './index.css';
 
-ReactDOM.render(
+const app = document.getElementById('root') as Element;
+const root = createRoot(app);
+
+root.render(
 	<React.StrictMode>
 		<App />
 	</React.StrictMode>,
-	document.getElementById('root')
 );
 
 serviceWorker.unregister();

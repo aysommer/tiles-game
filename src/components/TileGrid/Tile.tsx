@@ -2,7 +2,7 @@ import React from 'react';
 import { ITile } from '../../interfaces';
 import './Tile/Tile.css';
 
-function Tile({ text, isOpened, isUnlock, onClick }: ITile) {
+function Tile({ text, isOpened, onClick }: ITile) {
     return (
         <div
             className={"tile" + (isOpened ? " tile-flip" : "")}
@@ -14,4 +14,9 @@ function Tile({ text, isOpened, isUnlock, onClick }: ITile) {
     )
 }
 
-export default React.memo(Tile);
+export default React.memo(Tile, (prevProps, nextProps) => {
+    return (
+        prevProps.text === nextProps.text &&
+        prevProps.isOpened === nextProps.isOpened
+    )
+});
