@@ -1,28 +1,15 @@
-import React from 'react';
-import { ITile } from '../interfaces';
-import Tile from './TileGrid/Tile';
+import React, { ReactNode } from 'react';
 
 import './TileGrid/TileGrid.css';
 
 interface ITileGrid {
-    source: ITile[];
-    handleOpenTile: (key: number) => void;
+    children: ReactNode;
 }
 
-function TileGrid({ source, handleOpenTile }: ITileGrid) {
-    const tiles = source.map(({ text, isOpened, isUnlock }: ITile, key) => (
-        <Tile
-            key={key}
-            text={text}
-            isOpened={isOpened}
-            isUnlock={isUnlock}
-            onClick={() => handleOpenTile(key)}
-        />
-    ));
-
+function TileGrid({ children }: ITileGrid) {
     return (
         <section className="tile-grid">
-            {tiles}
+            {children}
         </section>
     )
 }

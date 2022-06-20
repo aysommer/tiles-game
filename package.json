@@ -2,19 +2,20 @@
   "name": "tiles-game",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://asmmer.github.io/tiles-game/",
+  "homepage": "https://aysommer.github.io/tiles-game/",
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "framer-motion": "^2.7.8",
-    "gh-pages": "^3.1.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3",
-    "typescript": "~3.7.2"
+    "@babel/helper-create-class-features-plugin": "^7.17.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.2.1",
+    "@types/jest": "^28.1.2",
+    "@types/node": "^18.0.0",
+    "framer-motion": "^6.3.11",
+    "gh-pages": "^4.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "typescript": "~4.7.4"
   },
   "scripts": {
     "predeploy": "yarn run build",
@@ -40,7 +41,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react": "^16.9.51",
-    "@types/react-dom": "^16.9.8"
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5"
   }
 }

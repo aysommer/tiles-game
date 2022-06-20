@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import TileGrid from './components/TileGrid';
 import Button from './components/Button';
 import Game from './utils/Game';
@@ -7,6 +7,7 @@ import InfoTitle from './components/InfoTitle';
 import { motion } from "framer-motion"
 
 import './App.css';
+import Tile from './components/TileGrid/Tile';
 
 const MAX_OPENED_TILES = 2;
 const GRID_SIZE = 16;
@@ -45,7 +46,7 @@ function App() {
         setSelectedKeys((currentKeys: number[]) => [...currentKeys, selectedKey]);
     }
 
-    function handleResetGame() {
+    const handleResetGame = useCallback(() => {
         setIsAnimating(true);
         setResetEnable(false);
         setOpenings(0);
@@ -64,7 +65,7 @@ function App() {
             setIsAnimating(false);
             setResetEnable(true);
         }, 500);
-    }
+    }, []);
 
     function showWin() {
         alert("WIN");
@@ -128,7 +129,19 @@ function App() {
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
             >
-                <TileGrid source={tiles} handleOpenTile={handleOpenTile} />
+                <TileGrid>
+                    {
+                        tiles.map(({ text, isOpened, isUnlock }: ITile, key) => (
+                            <Tile
+                                key={key}
+                                text={text}
+                                isOpened={isOpened}
+                                isUnlock={isUnlock}
+                                onClick={() => handleOpenTile(key)}
+                            />
+                        ))
+                    }
+                </TileGrid>
             </motion.div>
             <motion.div
                 className="app__controllers-panel"
