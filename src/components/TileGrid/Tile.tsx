@@ -14,9 +14,4 @@ function Tile({ text, isOpened, onClick }: ITile) {
     )
 }
 
-export default React.memo(Tile, (prevProps, nextProps) => {
-    return (
-        prevProps.text === nextProps.text &&
-        prevProps.isOpened === nextProps.isOpened
-    )
-});
+export default React.memo(Tile);
